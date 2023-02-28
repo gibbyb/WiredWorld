@@ -29,13 +29,13 @@ header img {
 nav {
     display: flex;
     flex-grow: 1;
-    margin-left: 50px;
+    margin-left: 3%;
 }
 
 nav a {
     color: #fff;
     text-decoration: none;
-    margin-right: 60px;
+    margin-right: 3%;
     font-size: 1.4em;
 }
 
@@ -66,7 +66,7 @@ nav a:hover {
 
 .dropbtn {
     background-color: #333;
-    margin-right: 60px;
+    margin-right: 50px;
     color: white;
     font-size: 1.4em;
     border: none;
@@ -126,7 +126,6 @@ main {
 }
 
 .featured-products {
-    padding: 5%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -134,13 +133,22 @@ main {
 
 .featured-products-header {
     font-size: 54px;
-    margin-bottom: 20px;
+    margin-top: 90px;
+    margin-bottom: 1%;
     text-align: center;
 }
 
+.featured-products-row-header {
+    font-size: 36px;
+    padding: 10px;
+    margin-top: 10px;
+    text-align: left;
+    margin-left: 4%;
+}
+
 .product-row {
-    margin-right: 100px;
-    margin-left: 100px;
+    margin-right: 5%;
+    margin-left: 5%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -152,12 +160,12 @@ main {
     margin: 10px;
     background-color: #444;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    padding: 10px;
+    padding: 5px;
     text-align: center;
 }
 
 .product-card img {
-    height: 400px;
+    width: 90%;
     margin-bottom: 10px;
 }
 
@@ -173,7 +181,7 @@ main {
 }
 
 .product-card button {
-    padding: 5px 10px;
+    padding: 8px 20px;
     background-color: #4CAF50;
     border: none;
     border-radius: 5px;
