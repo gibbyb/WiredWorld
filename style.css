@@ -23,7 +23,7 @@ header {
 }
 
 header img {
-    height: 80px;
+    height: 100px;
 }
 
 nav {
@@ -35,8 +35,8 @@ nav {
 nav a {
     color: #fff;
     text-decoration: none;
-    margin-right: 20px;
-    font-size: 1.2em;
+    margin-right: 40px;
+    font-size: 1.4em;
 }
 
 nav a:hover {
@@ -55,6 +55,7 @@ nav a:hover {
 .search-bar {
     display: flex;
     align-items: center;
+    padding: 5px;
 }
 
 .search-bar input[type="text"] {
@@ -64,7 +65,7 @@ nav a:hover {
 }
 
 .search-bar button {
-    padding: 5px 10px;
+    padding: 5px 20px;
     background-color: #4CAF50;
     border: none;
     border-radius: 5px;
@@ -79,7 +80,7 @@ nav a:hover {
 }
 
 main {
-    margin-top: 80px; /* account for height of navigation bar */
+    margin-top: 20px; /* account for height of navigation bar */
     padding: 50px;
 }
 
@@ -147,7 +148,7 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2%;
+    padding: 20px;
 }
 
 
