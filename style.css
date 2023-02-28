@@ -139,17 +139,17 @@ main {
 }
 
 .product-row {
-    margin-right: 200px;
-    margin-left: 200px;
+    margin-right: 100px;
+    margin-left: 100px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
 
 .product-card {
-    flex-basis: calc(33.33% - 40px);
-    width: 33.33%;
-    margin: 20px;
+    flex-basis: calc(25% - 20px);
+    width: 25%;
+    margin: 10px;
     background-color: #444;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     padding: 10px;
@@ -157,7 +157,7 @@ main {
 }
 
 .product-card img {
-    height: 500px;
+    height: 400px;
     margin-bottom: 10px;
 }
 
