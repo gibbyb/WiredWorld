@@ -24,6 +24,7 @@ header {
 
 header img {
     height: 100px;
+    margin-left: 10px;
 }
 
 nav {
@@ -35,13 +36,54 @@ nav {
 nav a {
     color: #fff;
     text-decoration: none;
-    margin-right: 40px;
+    margin-right: 60px;
     font-size: 1.4em;
 }
 
 nav a:hover {
     text-decoration: underline;
 }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #333333;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    padding: 10px;
+}
+
+.dropdown-content a {
+    color: white;
+
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropbtn {
+    background-color: #333;
+    margin-right: 60px;
+    color: white;
+    font-size: 1.4em;
+    border: none;
+    cursor: pointer;
+    margin-top: -2px;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #444;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #444;
+}
+
 
 .shopping-cart {
     margin-right: 20px; /* Adjust the margin as needed */
