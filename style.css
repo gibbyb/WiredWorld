@@ -155,6 +155,7 @@ main {
 }
 
 .product-card {
+    max-width: 30%;
     flex-basis: calc(25% - 20px);
     width: 25%;
     margin: 10px;
@@ -162,10 +163,14 @@ main {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     padding: 5px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .product-card img {
     width: 90%;
+    margin-left: 5%;
     margin-bottom: 10px;
 }
 
