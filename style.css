@@ -1,0 +1,108 @@
+/* reset default styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* header styles */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+header h1 {
+    font-size: 36px;
+    margin: 0;
+}
+
+/* navigation styles */
+nav {
+    background-color: #666;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+nav ul {
+    display: flex;
+    list-style: none;
+}
+nav li {
+    margin-right: 20px;
+}
+nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* form styles */
+nav form {
+    display: flex;
+    align-items: center;
+}
+nav input[type="search"] {
+    margin-right: 10px;
+    padding: 5px;
+}
+nav button[type="submit"] {
+    background-color: #333;
+    border: none;
+    color: #fff;
+    padding: 5px 10px;
+    text-transform: uppercase;
+}
+nav button[type="submit"]:hover {
+    background-color: #666;
+}
+
+/* main content styles */
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+section {
+    margin: 20px;
+    text-align: center;
+}
+section h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+section p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+section a {
+    background-color: #333;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+section a:hover {
+    background-color: #666;
+}
+section ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+section ul li {
+    margin: 10px;
+}
+
+/* footer styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+footer p {
+    margin: 0;
+}
