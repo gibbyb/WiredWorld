@@ -93,7 +93,6 @@ main {
 .featured-products-header {
     font-size: 54px;
     text-align: center;
-    padding: 1%;
 }
 
 .product-row {
@@ -114,6 +113,7 @@ main {
 
 .product-card img {
     max-width: 100%;
+    max-height: 80%;
     height: auto;
     margin-bottom: 10px;
 }
@@ -147,6 +147,7 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 2%;
 }
 
 
