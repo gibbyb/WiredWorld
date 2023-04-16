@@ -52,9 +52,7 @@ require_once 'config.php';
         </div>
     </section>
 </main>
-<footer>
-    <p>&copy; 2023 Wired World. All rights reserved.</p>
-</footer>
+<?php include 'footer.php'; ?>
 </body>
 </html>
 
