@@ -1,3 +1,7 @@
+<?php
+require_once 'config.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +11,41 @@
     <link rel="icon" href="img/wired-world-logo.png" type="image/png">
 </head>
 <body>
-<header>
-    <?php include 'header.php'; ?>
-</header>
+<?php include 'header.php'; ?>
+<main>
+    <section class="all-products">
+        <div class="product-container">
+            <?php
+            $sql = "SELECT * FROM products";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+            if (count($products) > 0) {
+                echo '<div class="product-row">';
+
+                $productCounter = 0;
+                foreach ($products as $product) {
+                    if ($productCounter % 4 == 0 && $productCounter > 0) {
+                        echo '</div><div class="product-row">';
+                    }
+                    echo '<div class="product-card">';
+                    echo '<img src="' . $product['thumbnail_path'] . '" alt="' . $product['name'] . '">';
+                    echo '<h3>' . $product['brand'] . ' ' . $product['name'] . '</h3>';
+                    echo '<p>' . $product['description'] . '</p>';
+                    echo '<button>Add to Cart</button>';
+                    echo '</div>';
+                    $productCounter++;
+                }
+
+                echo '</div>';
+            }
+            ?>
+        </div>
+    </section>
+</main>
+<footer>
+    <p>&copy; 2023 Wired World. All rights reserved.</p>
+</footer>
 </body>
 </html>
