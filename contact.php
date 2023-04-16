@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Wired World</title>
+    <title>Wired World - Contact</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="img/wired-world-logo.png" type="image/png">
 </head>
 <body>
 <header>
