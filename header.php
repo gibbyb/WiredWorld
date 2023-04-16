@@ -1,33 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Wired World</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
 <header>
-    <a href="index.html"><img src="/img/wired-world-logo.png" alt="Wired World Logo"></a>
+    <a href="index.php"><img src="/img/wired-world-logo.png" alt="Wired World Logo"></a>
     <nav>
-        <a href="bestdeals.html">Best Deals</a>
+        <a href="bestdeals.php">Best Deals</a>
         <div class="dropdown">
             <button class="dropbtn">Products &#9662;</button>
             <div class="dropdown-content">
-                <a href="products.html">All Products</a>
+                <a href="products.php">All Products</a>
                 <a href="#">Phones</a>
                 <a href="#">Tablets</a>
                 <a href="#">Laptops</a>
                 <a href="#">Desktops</a>
                 <a href="#">PC Components</a>
-
             </div>
         </div>
-        <a href="locations.html">Store Locations</a>
-        <a href="contact.html">Contact Us</a>
+        <a href="locations.php">Store Locations</a>
+        <a href="contact.php">Contact Us</a>
     </nav>
 
     <div class="shopping-cart">
-        <a href="cart.html">
+        <a href="cart.php">
             <img src="/img/shopping-cart.png" alt="Shopping Cart">
         </a>
     </div>
@@ -36,6 +27,3 @@
         <button>Search</button>
     </div>
 </header>
-
-</body>
-</html>
