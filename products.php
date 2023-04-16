@@ -12,7 +12,7 @@ require_once 'config.php';
 </head>
 <body>
 <?php include 'header.php'; ?>
-<main>
+<main id="products-main" style="margin-top: 100px;">
     <section class="all-products">
         <div class="product-container">
             <?php
