@@ -4,6 +4,7 @@ WiredWorld is a DBMS course project for an online electronics vendor website. Th
 # Authors
 
 Gabriel Brown
+
 Kolten Donovan
 
 # For Dr. Bo Li
