@@ -7,9 +7,8 @@
     <link rel="icon" href="img/wired-world-logo.png" type="image/png">
 </head>
 <body>
-<header>
-    <?php include 'header.php'; ?>
-</header>
+<?php include 'header.php'; ?>
+
 
 
 <?php include 'footer.php'; ?>
