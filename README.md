@@ -7,14 +7,3 @@ Gabriel Brown
 
 Kolten Donovan
 
-# For Dr. Bo Li
-
-The database used for this website and assignment can be accessed through https://adminer.gibbyb.com with the following relevant information to sign in:
-
-Host: wwdb.gibbyb.com
-
-Username: ww-db
-
-Password: ww2023
-
-Database: wired-world-db
