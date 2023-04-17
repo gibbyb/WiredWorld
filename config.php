@@ -1,4 +1,5 @@
 <?php
+session_start();
 $host = "wwdb.gibbyb.com"; // Your database host (usually localhost)
 $db_name = "wired-world-db"; // The name of your database
 $username = "ww-db"; // Your MySQL username
@@ -10,6 +11,6 @@ try {
 } catch(PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
 }
-?>
+
 
 

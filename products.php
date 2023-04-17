@@ -33,6 +33,7 @@ require_once 'config.php';
                     echo '<img src="' . $product['thumbnail_path'] . '" alt="' . $product['name'] . '">';
                     echo '<h3>' . $product['brand'] . ' ' . $product['name'] . '</h3>';
                     echo '<p>' . $product['description'] . '</p>';
+                    echo '<p class="product-price">$' . number_format($product['price'], 2) . '</p>';
                     echo '<button>Add to Cart</button>';
                     echo '</div>';
                     $productCounter++;

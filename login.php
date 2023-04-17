@@ -1,8 +1,10 @@
 <?php
 require_once 'config.php';
 
+
 // Initialize variables to store form input errors
 $login_error = "";
+$login_success = "";
 $register_error = "";
 $register_success = "";
 
@@ -21,24 +23,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
         // Execute query and get results
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-        if ($stmt->rowCount() > 0)
+        if ($user !== false)
         {
-            // Get user data
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             // Verify password
             if (password_verify($password, $user['password']))
             {
                 // Start a new session and set session variables
-                session_start();
                 $_SESSION['customer_id'] = $user['customer_id'];
                 $_SESSION['email'] = $email;
 
                 // Redirect to a protected page
                 header("Location: index.php");
+                $login_success = "Successfully logged in.";
             } else
             {
                 // Incorrect password
@@ -49,10 +49,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         {
             $login_error = "Invalid email or password.";
         }
-
-        // Close connection and statement
-        $stmt = null;
-        $conn = null;
 
         // Check if the registration form is submitted
     } elseif (isset($_POST["action"]) && $_POST["action"] == "register") {
@@ -78,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
         // Execute query and check for success
         if ($stmt->execute()) {
-            $register_success = "Registration successful! <a href='login.php'>Login here</a>";
+            $register_success = "Registration successful!";
         } else {
             if ($stmt->errno == 1062) { // Duplicate entry error code
                 $register_error = "Error: Email already in use. <a href='login.php'>Try again</a>";
@@ -86,10 +82,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                 $register_error = "Error: " . $stmt->error . ". <a href='login.php'>Try again</a>";
             }
         }
-
-        // Close connection and statement
-        $stmt = null;
-        $conn = null;
 
     }
 }
@@ -144,6 +136,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     </form>
     <?php if (!empty($login_error)): ?>
         <p><?php echo $login_error; ?></p>
+    <?php endif; ?>
+    <?php if (!empty($login_success)): ?>
+        <p><?php echo $login_success; ?></p>
     <?php endif; ?>
 
     <h1>Register</h1>

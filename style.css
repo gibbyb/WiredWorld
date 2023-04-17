@@ -29,7 +29,14 @@ header img {
 nav {
     display: flex;
     flex-grow: 1;
+    flex-wrap: wrap;
     margin-left: 3%;
+}
+
+nav span {
+    margin-right: 2.2%;
+    font-size: 1.4em;
+    white-space: nowrap;
 }
 
 nav a {
@@ -183,6 +190,13 @@ main {
     font-size: 0.9em;
     color: #ccc;
     margin-bottom: 20px;
+}
+
+.product-card .product-price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #4CAF50;
+    margin-bottom: 10px;
 }
 
 .product-card button {

@@ -1,17 +1,16 @@
 <?php
 require_once 'config.php';
-session_start();
 
 $first_name = "";
 
 if (isset($_SESSION['customer_id'])) {
-    $stmt = $conn->prepare("SELECT first_name FROM customer WHERE customer_id = ?");
-    $stmt->bind_param("i", $_SESSION['customer_id']);
+    $stmt = $conn->prepare("SELECT first_name FROM customers WHERE customer_id = ?");
+    $stmt->bindParam(1, $customer_id, PDO::PARAM_INT);
     $stmt->execute();
-    $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $user = $result[0];
     $first_name = $user['first_name'];
-    $stmt->close();
+    $stmt = null;
 }
 ?>
 
@@ -22,17 +21,17 @@ if (isset($_SESSION['customer_id'])) {
             <button class="dropbtn">Products &#9662;</button>
             <div class="dropdown-content">
                 <a href="products.php">All Products</a>
-                <a href="#">Phones</a>
-                <a href="#">Tablets</a>
-                <a href="#">Laptops</a>
-                <a href="#">Desktops</a>
-                <a href="#">PC Components</a>
+                <a href="phones.php">Phones</a>
+                <a href="tablets.php">Tablets</a>
+                <a href="laptops.php">Laptops</a>
+                <a href="desktops.php">Desktops</a>
+                <a href="pc_components.php">PC Components</a>
             </div>
         </div>
         <a href="locations.php">Store Locations</a>
-        <a href="contact.php">Contact Us</a>
         <?php if (isset($_SESSION['customer_id'])):?>
-            <span>Welcome, <?php echo $first_name; ?></span>
+            <a href="orders.php">Orders</a>
+            <a href="logout.php">Log Out</a>
         <?php else: ?>
             <a href="login.php">Log In</a>
         <?php endif; ?>
