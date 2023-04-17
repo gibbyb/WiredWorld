@@ -28,7 +28,7 @@ if (isset($_SESSION['customer_id'])) {
                 <a href="pc_components.php">PC Components</a>
             </div>
         </div>
-        <a href="locations.php">Store Locations</a>
+        <a href="locations.php">Stores</a>
         <?php if (isset($_SESSION['customer_id'])):?>
             <a href="orders.php">Orders</a>
             <a href="logout.php">Log Out</a>
