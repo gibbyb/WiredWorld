@@ -1,5 +1,5 @@
 <?php
-$host = "172.17.0.8"; // Your database host (usually localhost)
+$host = "wwdb.gibbyb.com"; // Your database host (usually localhost)
 $db_name = "wired-world-db"; // The name of your database
 $username = "ww-db"; // Your MySQL username
 $password = "ww2023"; // Your MySQL password
