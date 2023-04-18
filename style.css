@@ -10,6 +10,41 @@ body {
     font-family: Arial, sans-serif;
 }
 
+@media (max-width: 768px) {
+    header img {
+        height: 80px;
+        margin-left: 10px;
+    }
+
+    nav a {
+        font-size: 1.2em;
+    }
+
+    .dropbtn {
+        font-size: 1.2em;
+    }
+
+    .shopping-cart img {
+        width: 30px;
+    }
+
+    .search-bar {
+        padding: 5px;
+    }
+
+    .search-bar input[type="text"] {
+        padding: 5px 10px;
+    }
+
+    .search-bar button {
+        padding: 4px 10px;
+        font-size: 1em;
+        margin-left: 5px;
+        margin-right: 10px;
+    }
+}
+
+
 header {
     position: fixed;
     top: 0;

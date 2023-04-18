@@ -43,6 +43,6 @@ if (isset($_SESSION['customer_id'])) {
     </div>
     <div class="search-bar">
         <input type="text" placeholder="Search Products">
-        <button>Search</button>
+        <button>🔍</button>
     </div>
 </header>
