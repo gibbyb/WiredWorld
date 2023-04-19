@@ -41,7 +41,6 @@ foreach ($cart_items as $item) {
 <body>
 <?php include 'header.php'; ?>
 <main id="cart-main" style="margin-top: 100px;">
-
   <h1>Your Cart</h1>
   <div class="cart-container">
     <?php foreach ($cart_items as $item): ?>
@@ -59,16 +58,17 @@ foreach ($cart_items as $item) {
             <input type="number" name="quantity" id="quantity" value="<?php echo $item['quantity']; ?>" min="0" max="99">
             <button type="submit">Update</button>
           </form>
-          <p class="item-price">Price: $<?php echo number_format($item['price'], 2); ?></p>
+          <p class="cart-item-price">Price: $<?php echo number_format($item['price'], 2); ?></p>
         </div>
       </div>
     <?php endforeach; ?>
   </div>
   <div class="cart-total">
     <h2>Total: $<?php echo number_format($total, 2); ?></h2>
-    <button class="checkout-btn">Checkout</button>
+    <form action="check_out.php" method="get">
+      <button class="checkout-btn" type="submit">Checkout</button>
+    </form>
   </div>
-
 </main>
 <?php include 'footer.php'; ?>
 </body>

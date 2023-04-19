@@ -24,11 +24,11 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 <?php include 'header.php'; ?>
-
 <main id="products-main" style="margin-top: 100px;">
     <section class="all-products">
         <div class="product-container">
             <?php
+            echo '<h1 class="featured-products-header">Search Results for ' . htmlspecialchars($search_query) . '</h1>';
             if (count($products) > 0) {
                 echo '<div class="product-row">';
                 $productCounter = 0;
@@ -57,7 +57,6 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </section>
 </main>
-
 <?php include 'footer.php'; ?>
 </body>
 </html>
