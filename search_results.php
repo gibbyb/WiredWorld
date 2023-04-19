@@ -1,6 +1,5 @@
 <?php
 require_once 'config.php';
-
 $search_query = "";
 if (isset($_GET['search_query'])) {
     $search_query = $_GET['search_query'];
