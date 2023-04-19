@@ -13,8 +13,6 @@ require_once 'config.php';
     $exp_date = $_POST["exp_date"];
     $cvv_number = $_POST["cvv_number"];
     $account_number = $_POST["account_number"];
-    $routing_number = $_POST["routing_number"];
-
     // perform payment processing here
 
     // redirect to thank you page
@@ -44,8 +42,7 @@ require_once 'config.php';
   <label for="account_number">Account Number:</label>
   <input type="text" name="account_number"><br>
 
-  <label for="routing_number">Routing Number:</label>
-  <input type="text" name="routing_number"><br>
+
 
   <h2>Cart Items</h2>
 
