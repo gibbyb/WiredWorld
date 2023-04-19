@@ -352,3 +352,53 @@ footer {
 .cart-total button:hover {
     background-color: #3e8e41;
 }
+
+/* Orders Page CSS */
+#orders-container {
+    margin-top: 150px;
+}
+
+#orders-container h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.order {
+    background-color: #444;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.order h3 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.order table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+.order table th,
+.order table td {
+    font-size: 16px;
+    padding: 5px 10px;
+    border: 1px solid #fff;
+    text-align: left;
+}
+
+.order table th {
+    background-color: #333;
+}
+
+.order table tfoot td {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.order table tfoot td:last-child {
+    text-align: right;
+}
