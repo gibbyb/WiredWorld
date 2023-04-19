@@ -81,27 +81,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Checkout</title>
+    <meta charset="UTF-8">
+    <title>Wired World - Products</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="img/wired-world-logo.png" type="image/png">
 </head>
 <body>
-<h1>Checkout</h1>
+<?php include 'header.php'; ?>
+<main id="check-out-main" style="margin-top: 100px;">
 
-<form method="POST" action="check_out.php">
-    <label for="cc_number">Credit Card Number:</label>
-    <input type="text" name="cc_number" id="cc_number"><br>
+    <h1>Checkout</h1>
 
-    <label for="exp_date">Expiration Date (MM/YY):</label>
-    <input type="text" name="exp_date" id="exp_date"><br>
+    <form method="POST" action="check_out.php">
+        <label for="cc_number">Credit Card Number:</label>
+        <input type="text" name="cc_number" id="cc_number"><br>
 
-    <label for="cvv_number">CVV Number:</label>
-    <input type="text" name="cvv_number" id="cvv_number"><br>
+        <label for="exp_date">Expiration Date (MM/YY):</label>
+        <input type="text" name="exp_date" id="exp_date"><br>
 
-    <label for="account_number">Bank Account Number:</label>
-    <input type="text" name="account_number" id="account_number"><br>
+        <label for="cvv_number">CVV Number:</label>
+        <input type="text" name="cvv_number" id="cvv_number"><br>
 
-    <input type="submit" value="Place Order">
-</form>
+        <label for="account_number">Business Account Number:</label>
+        <input type="text" name="account_number" id="account_number"><br>
+
+        <input type="submit" value="Place Order">
+    </form>
+
+</main>
+<?php include 'footer.php'; ?>
 </body>
 </html>

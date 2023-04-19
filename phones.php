@@ -52,12 +52,10 @@ $selectedStoreId = $_SESSION['selected_store_id'] ?? 0;
                     $stmt = $conn->prepare($sql);
                     $stmt->execute();
                     $inventory = $stmt->fetch(PDO::FETCH_ASSOC);
-                    if ($inventory) {
+                    if ($inventory)
+                    {
                         echo '<p class="product-stock">In stock: ' . $inventory['quantity'] . '</p>';
-                    } else {
-                        echo '<p class="product-stock">Out of stock</p>';
                     }
-
                     echo '<form action="add_to_cart.php" method="post">';
                     echo '<input type="hidden" name="product_id" value="' . $product['product_id'] . '">';
                     echo '<input type="number" name="quantity" value="1" min="1" max="99" style="width: 50px;">';
