@@ -1,5 +1,17 @@
 <?php
 require_once 'config.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // User has selected a store, update the session variable
+    $_SESSION['selected_store_id'] = $_POST['selected_store_id'];
+    $selectedStoreId = $_SESSION['selected_store_id'];
+    $productId = $_POST['product_id'];
+    header("Location: update_inventory.php?store_id=$selectedStoreId&product_id=$productId");
+    exit;
+}
+
+$selectedStoreId = $_SESSION['selected_store_id'] ?? 0;
+
 ?>
 
 <!DOCTYPE html>
@@ -34,6 +46,18 @@ require_once 'config.php';
                     echo '<h3>' . $product['brand'] . ' ' . $product['name'] . '</h3>';
                     echo '<p>' . $product['description'] . '</p>';
                     echo '<p class="product-price">$' . number_format($product['price'], 2) . '</p>';
+                    $storeId = $selectedStoreId == 0 ? 1 : $selectedStoreId;
+                    $productId = $product['product_id'];
+                    $sql = "SELECT * FROM inventory WHERE store_id = $storeId AND product_id = $productId";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->execute();
+                    $inventory = $stmt->fetch(PDO::FETCH_ASSOC);
+                    if ($inventory) {
+                        echo '<p class="product-stock">In stock: ' . $inventory['quantity'] . '</p>';
+                    } else {
+                        echo '<p class="product-stock">Out of stock</p>';
+                    }
+
                     echo '<form action="add_to_cart.php" method="post">';
                     echo '<input type="hidden" name="product_id" value="' . $product['product_id'] . '">';
                     echo '<input type="number" name="quantity" value="1" min="1" max="99" style="width: 50px;">';
