@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once 'config.php';
-session_start();
 
   $customer_id = $_SESSION["customer_id"];
   $cart_items_query = "SELECT c.cart_item_id, c.product_id, c.quantity, p.name, p.price, p.thumbnail_path FROM cart_items c INNER JOIN products p ON c.product_id = p.product_id WHERE c.customer_id = $customer_id";
