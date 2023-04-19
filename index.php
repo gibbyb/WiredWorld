@@ -42,7 +42,11 @@ require_once 'config.php';
                         echo '<h3>' . $product['brand'] . ' ' . $product['name'] . '</h3>';
                         echo '<p>' . $product['description'] . '</p>';
                         echo '<p class="product-price">$' . number_format($product['price'], 2) . '</p>';
-                        echo '<button>Add to Cart</button>';
+                        echo '<form action="add_to_cart.php" method="post">';
+                        echo '<input type="hidden" name="product_id" value="' . $product['product_id'] . '">';
+                        echo '<input type="number" name="quantity" value="1" min="1" max="99" style="width: 50px;">';
+                        echo '<input type="submit" value="Add to Cart">';
+                        echo '</form>';
                         echo '</div>';
                     }
 

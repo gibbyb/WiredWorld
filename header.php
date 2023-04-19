@@ -42,7 +42,9 @@ if (isset($_SESSION['customer_id'])) {
         </a>
     </div>
     <div class="search-bar">
-        <input type="text" placeholder="Search Products">
-        <button>🔍</button>
+        <form action="search_results.php" method="get">
+            <input type="text" name="search_query" placeholder="Search Products">
+            <button type="submit">🔍</button>
+        </form>
     </div>
 </header>

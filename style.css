@@ -234,7 +234,7 @@ main {
     margin-bottom: 10px;
 }
 
-.product-card button {
+.product-card button, input[type="submit"] {
     padding: 8px 20px;
     background-color: #4CAF50;
     border: none;
@@ -245,15 +245,109 @@ main {
     margin-bottom: 2%;
 }
 
-.product-card button:hover {
+.product-card button:hover, input[type="submit"] {
     background-color: #3e8e41;
 }
+
+.product-card input[type="number"] {
+    padding: 8px 10px;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    font-size: 1.2em;
+    color: #4CAF50;
+    width: 100px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.product-card input[type="number"]:focus {
+    outline: none;
+    border-color: #3e8e41;
+}
+
 
 footer {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
+}
+
+.cart-container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#cart-main h1{
+    text-align: center;
+    font-size: 2em;
+    margin: 1.5em 0;
+}
+
+.cart-item {
+    flex: 0 0 calc(33.333% - 1em);
+    background-color: #444444;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 1em;
+    margin-bottom: 1em;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item img {
+    max-height: 150px;
+    object-fit: contain;
+    margin-bottom: 1em;
+}
+
+.cart-item-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-item-price {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.cart-quantity {
+    display: flex;
+    align-items: center;
+}
+
+.cart-quantity-input {
+    width: 50px;
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+.cart-summary {
+    text-align: right;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 2em;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.cart-total button {
+    padding: 8px 20px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-bottom: 2%;
+}
+
+.cart-total button:hover {
+    background-color: #3e8e41;
 }
 
 
