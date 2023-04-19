@@ -3,14 +3,20 @@ require_once 'config.php';
 
 $customer_id = $_SESSION['customer_id'];
 
-if (isset($_POST['action']) && $_POST['action'] === 'update_cart') {
+// If quantity changed in cart
+if (isset($_POST['action']) && $_POST['action'] === 'update_cart')
+{
   $cart_item_id = $_POST['cart_item_id'];
   $quantity = $_POST['quantity'];
-
-  if ($quantity == 0) {
+  // Remove if new quantity is 0
+  if ($quantity == 0)
+  {
     $stmt = $conn->prepare("DELETE FROM cart_items WHERE cart_item_id = ?");
     $stmt->bindParam(1, $cart_item_id);
-  } else {
+  }
+  // Otherwise update the quantity.
+  else
+  {
     $stmt = $conn->prepare("UPDATE cart_items SET quantity = ? WHERE cart_item_id = ?");
     $stmt->bindParam(1, $quantity);
     $stmt->bindParam(2, $cart_item_id);
@@ -18,11 +24,13 @@ if (isset($_POST['action']) && $_POST['action'] === 'update_cart') {
   $stmt->execute();
 }
 
+// Prepare and execute SQL necessary to display cart.
 $stmt = $conn->prepare("SELECT cart_items.cart_item_id, cart_items.product_id, cart_items.quantity, products.brand, products.name, products.description, products.thumbnail_path, products.price FROM cart_items JOIN products ON cart_items.product_id = products.product_id WHERE cart_items.customer_id = ?");
 $stmt->bindParam(1, $customer_id);
 $stmt->execute();
 $cart_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+//Initialize total cost of cart
 $total = 0;
 foreach ($cart_items as $item) {
   $total += $item['price'] * $item['quantity'];
