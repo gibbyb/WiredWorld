@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'config.php';
+
 // If user isn't logged in, redirect to login page
 if (!isset($_SESSION['customer_id']))
 {

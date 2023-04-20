@@ -1,7 +1,8 @@
 <?php
 require_once 'config.php';
 $search_query = "";
-if (isset($_GET['search_query'])) {
+if (isset($_GET['search_query']))
+{
     $search_query = $_GET['search_query'];
 }
 $stmt = $conn->prepare("SELECT * FROM products WHERE name LIKE ? OR brand LIKE ? OR description LIKE ?");
@@ -12,7 +13,8 @@ $stmt->bindParam(3, $search_term);
 $stmt->execute();
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
     // User has selected a store, update the session variable
     $_SESSION['selected_store_id'] = $_POST['selected_store_id'];
     $selectedStoreId = $_SESSION['selected_store_id'];
@@ -20,9 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Location: update_inventory.php?store_id=$selectedStoreId&product_id=$productId");
     exit;
 }
-
 $selectedStoreId = $_SESSION['selected_store_id'] ?? 0;
-
 ?>
 
 <!DOCTYPE html>
@@ -40,11 +40,14 @@ $selectedStoreId = $_SESSION['selected_store_id'] ?? 0;
         <div class="product-container">
             <?php
             echo '<h1 class="featured-products-header">Search Results for ' . htmlspecialchars($search_query) . '</h1>';
-            if (count($products) > 0) {
+            if (count($products) > 0)
+            {
                 echo '<div class="product-row">';
                 $productCounter = 0;
-                foreach ($products as $product) {
-                    if ($productCounter % 4 == 0 && $productCounter > 0) {
+                foreach ($products as $product)
+                {
+                    if ($productCounter % 4 == 0 && $productCounter > 0)
+                    {
                         echo '</div><div class="product-row">';
                     }
                     echo '<div class="product-card">';
@@ -71,7 +74,9 @@ $selectedStoreId = $_SESSION['selected_store_id'] ?? 0;
                     $productCounter++;
                 }
                 echo '</div>';
-            } else {
+            }
+            else
+            {
                 echo '<p>No results found for "' . htmlspecialchars($search_query) . '"</p>';
             }
             ?>

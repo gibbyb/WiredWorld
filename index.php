@@ -1,7 +1,8 @@
 <?php
 require_once 'config.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
     // User has selected a store, update the session variable
     $_SESSION['selected_store_id'] = $_POST['selected_store_id'];
     $selectedStoreId = $_SESSION['selected_store_id'];
@@ -9,9 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Location: update_inventory.php?store_id=$selectedStoreId&product_id=$productId");
     exit;
 }
-
 $selectedStoreId = $_SESSION['selected_store_id'] ?? 0;
-
 ?>
 
 <!DOCTYPE html>
@@ -29,14 +28,16 @@ $selectedStoreId = $_SESSION['selected_store_id'] ?? 0;
         <div class="product-container">
             <h1 class="featured-products-header">Featured Products</h1>
             <?php
-            $categories = [
+            $categories =
+            [
                 ['name' => 'Phones & Tablets', 'ids' => [1, 2]],
                 ['name' => 'Laptops', 'ids' => [3]],
                 ['name' => 'Desktops', 'ids' => [4]],
                 ['name' => 'PC Components', 'ids' => [5, 6, 7, 8, 9]]
             ];
 
-            foreach ($categories as $category) {
+            foreach ($categories as $category)
+            {
                 $category_ids = implode(",", $category['ids']);
 
                 $sql = "SELECT * FROM products WHERE featured = 1 AND category_id IN ($category_ids) LIMIT 4";
@@ -44,7 +45,8 @@ $selectedStoreId = $_SESSION['selected_store_id'] ?? 0;
                 $stmt->execute();
                 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                if (count($products) > 0) {
+                if (count($products) > 0)
+                {
                     echo '<h2 class="featured-products-row-header">' . $category['name'] . '</h2>';
                     echo '<div class="product-row">';
 
@@ -66,16 +68,18 @@ $selectedStoreId = $_SESSION['selected_store_id'] ?? 0;
                         }
                         echo '<form action="add_to_cart.php" method="post">';
                         echo '<input type="hidden" name="product_id" value="' . $product['product_id'] . '">';
-                        if ($inventory) {
+                        if ($inventory)
+                        {
                             echo '<input type="number" name="quantity" value="1" min="1" max="' . $inventory['quantity'] . '" style="width: 50px;">';
-                        } else {
+                        }
+                        else
+                        {
                             echo '<input type="number" name="quantity" value="1" min="1" style="width: 50px;">';
                         }
                         echo '<input type="submit" value="Add to Cart">';
                         echo '</form>';
                         echo '</div>';
                     }
-
                     echo '</div>';
                 }
             }

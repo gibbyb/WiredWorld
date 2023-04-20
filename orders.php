@@ -1,11 +1,12 @@
 <?php
 require_once 'config.php';
 
-if (!isset($_SESSION['customer_id'])) {
+// If user isn't logged in, take them to login page.
+if (!isset($_SESSION['customer_id']))
+{
     header("Location: login.php");
     exit();
 }
-
 $customer_id = $_SESSION['customer_id'];
 
 // Fetch orders

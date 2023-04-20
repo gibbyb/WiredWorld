@@ -1,9 +1,8 @@
 <?php
 require_once 'config.php';
 
-$first_name = "";
-
-if (isset($_SESSION['customer_id'])) {
+if (isset($_SESSION['customer_id']))
+{
     $stmt = $conn->prepare("SELECT first_name FROM customers WHERE customer_id = ?");
     $stmt->bindParam(1, $customer_id, PDO::PARAM_INT);
     $stmt->execute();

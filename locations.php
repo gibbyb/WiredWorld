@@ -1,7 +1,8 @@
 <?php
 require_once 'config.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
     // User has selected a store, update the session variable
     $_SESSION['selected_store_id'] = $_POST['selected_store_id'];
     $selectedStoreId = $_SESSION['selected_store_id'];
@@ -9,9 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Location: update_inventory.php?store_id=$selectedStoreId&product_id=$productId");
     exit;
 }
-
 $selectedStoreId = $_SESSION['selected_store_id'] ?? 0;
-
 ?>
 
 <!DOCTYPE html>
@@ -33,16 +32,18 @@ $selectedStoreId = $_SESSION['selected_store_id'] ?? 0;
             $stmt->execute();
             $stores = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            if (count($stores) > 0) {
+            if (count($stores) > 0)
+            {
                 echo '<form action="locations.php" method="post">';
                 echo '<div class="location-row">';
 
-                foreach ($stores as $store) {
-                    if ($store['store_id'] == 1) {
+                foreach ($stores as $store)
+                {
+                    if ($store['store_id'] == 1)
+                    {
                         // Skip the first store, it should not be manually selectable
                         continue;
                     }
-
                     echo '<div class="location-card">';
                     echo '<input type="radio" name="selected_store_id" value="' . $store['store_id'] . '"' . ($selectedStoreId == $store['store_id'] ? ' checked' : '') . '>';
                     echo '<h3><u><b>' . $store['name'] . '</b></u></h3>';

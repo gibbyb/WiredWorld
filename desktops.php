@@ -1,7 +1,8 @@
 <?php
 require_once 'config.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
     // User has selected a store, update the session variable
     $_SESSION['selected_store_id'] = $_POST['selected_store_id'];
     $selectedStoreId = $_SESSION['selected_store_id'];
@@ -35,10 +36,11 @@ $selectedStoreId = $_SESSION['selected_store_id'] ?? 0;
 
             if (count($products) > 0) {
                 echo '<div class="product-row">';
-
                 $productCounter = 0;
-                foreach ($products as $product) {
-                    if ($productCounter % 4 == 0 && $productCounter > 0) {
+                foreach ($products as $product)
+                {
+                    if ($productCounter % 4 == 0 && $productCounter > 0)
+                    {
                         echo '</div><div class="product-row">';
                     }
                     echo '<div class="product-card">';
@@ -64,7 +66,6 @@ $selectedStoreId = $_SESSION['selected_store_id'] ?? 0;
                     echo '</div>';
                     $productCounter++;
                 }
-
                 echo '</div>';
             }
             ?>

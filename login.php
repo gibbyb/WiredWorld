@@ -25,10 +25,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
+        // if we have a matching user
         if ($user !== false)
         {
-
             // Verify password
             if (password_verify($password, $user['password']))
             {
@@ -39,7 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                 // Redirect to a protected page
                 header("Location: index.php");
                 $login_success = "Successfully logged in.";
-            } else
+            }
+            else
             {
                 // Incorrect password
                 $login_error = "Invalid email or password.";
@@ -49,16 +49,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         {
             $login_error = "Invalid email or password.";
         }
-
-        // Check if the registration form is submitted
-    } elseif (isset($_POST["action"]) && $_POST["action"] == "register") {
+    }
+    // Check if the registration form is submitted.
+    elseif (isset($_POST["action"]) && $_POST["action"] == "register")
+    {
         // Get user input from the submitted form
         $first_name = $_POST['first_name'];
         $last_name = $_POST['last_name'];
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        // Hash the password
+        // Hash the password. Literally the first thing we do.
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         // Prepare and bind SQL query
@@ -69,20 +70,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         $stmt->bindParam(":hashed_password", $hashed_password);
         $stmt->bindParam(":account_number", $account_number);
 
-        // Set account number to a random value between 100000 and 999999
+        // Set account number to a random value for the account number. This will be used for business accounts.
         $account_number = rand(100000, 999999);
 
         // Execute query and check for success
-        if ($stmt->execute()) {
+        if ($stmt->execute())
+        {
             $register_success = "Registration successful!";
-        } else {
-            if ($stmt->errno == 1062) { // Duplicate entry error code
+        }
+        else
+        {
+            if ($stmt->errno == 1062)
+            { // Duplicate entry error code
                 $register_error = "Error: Email already in use. <a href='login.php'>Try again</a>";
-            } else {
+            }
+            else
+            {
                 $register_error = "Error: " . $stmt->error . ". <a href='login.php'>Try again</a>";
             }
         }
-
     }
 }
 ?>
@@ -100,7 +106,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 <main id="login" style="margin-top: 100px;">
     <?php
     // Check if the user is logged in
-    if (isset($_SESSION['customer_id'])) {
+    if (isset($_SESSION['customer_id']))
+    {
         // Get the user's ID from the session
         $customer_id = $_SESSION['customer_id'];
 
@@ -120,9 +127,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             <p>Email: <?php echo $user['email']; ?></p>
         </div>
     <?php
-    } else {
-    // Display the login and registration forms if the user is not logged in
-    ?>
+    }
+    // Display the login and registration forms if the user is not logged in.
+    else
+    {?>
     <h1>Login</h1>
     <form action="login.php" method="post">
         <input type="hidden" name="action" value="login">
@@ -133,14 +141,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         <input type="password" name="password" id="password" required>
         <br>
         <input type="submit" value="Login">
-    </form>
+    </form><!-- Upon button click, display appropriate error -->
     <?php if (!empty($login_error)): ?>
         <p><?php echo $login_error; ?></p>
     <?php endif; ?>
     <?php if (!empty($login_success)): ?>
         <p><?php echo $login_success; ?></p>
     <?php endif; ?>
-
+        <!-- **********************************************************8 -->
     <h1>Register</h1>
     <form action="login.php" method="post">
         <input type="hidden" name="action" value="register">
@@ -157,7 +165,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         <input type="password" name="password" id="password" required>
         <br>
         <input type="submit" value="Register">
-    </form>
+    </form><!-- Upon button click, display appropriate error -->
     <?php if (!empty($register_error)): ?>
         <p><?php echo $register_error; ?></p>
     <?php endif; ?>
