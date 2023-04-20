@@ -77,6 +77,8 @@ store_id		    int unsigned	foreign key
 
 order_date		  datetime
 
+business_order      bit(1)
+
 tracking_number	int unsigned
 
 status			    enum('Pending','Processing','Shipped','Delivered','Cancelled','Returned')
