@@ -6,6 +6,8 @@ customer_id		  int unsigned	foreign key
 
 product_id		  int unsigned	foreign key
 
+store_id          int unsigned  foreign key
+
 quantity		    int unsigned
 
 
@@ -38,6 +40,8 @@ exp_date		    varchar(255)
 cvv_number		  varchar(255)
 
 address			    varchar(255)
+
+city                varchar(255)
 
 state			      enum('AL','AK','AZ','AR','CA','CO', ...)
 
@@ -77,6 +81,12 @@ store_id		    int unsigned	foreign key
 
 order_date		  datetime
 
+cc_number           varchar(24)
+
+exp_date            varchar(6)
+
+cvv_number          varchar(4)
+
 business_order      bit(1)
 
 tracking_number	int unsigned
@@ -94,9 +104,7 @@ po_id			      int unsigned 	foreign key
 
 product_id		  int unsigned	foreign key
 
-quantity		    int unsigned 	
-
-price 			    decimal unsigned
+quantity		    int unsigned
 
 # products table:
 
@@ -128,9 +136,7 @@ tracking_number int unsigned
 
 status			    enum('Pending','Processing','Shipped','Delivered','Cancelled')
 
-delivery_date	  datetime	
-
-received		    bit(1)			
+delivery_date	  datetime
 
 # stores table:
 

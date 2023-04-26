@@ -15,6 +15,7 @@ $stmt = $conn->prepare($query);
 $stmt->bindParam(':customer_id', $customer_id, PDO::PARAM_INT);
 $stmt->execute();
 $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +32,14 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <h2>Your Orders</h2>
     <?php foreach ($orders as $order): ?>
         <div class="order">
-            <h3>Order #<?php echo $order['order_id']; ?> - <?php echo $order['order_date']; ?></h3>
+            <?php
+            $query = "SELECT name FROM stores WHERE store_id = :store_id";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':store_id', $order['store_id']);
+            $stmt->execute();
+            $store_name = $stmt->fetchColumn();
+            ?>
+            <h3>Order #<?php echo $order['order_id']; ?> - <?php echo $order['order_date']; ?> - <?php echo $store_name; ?> </h3>
             <table>
                 <thead>
                 <tr>
