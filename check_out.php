@@ -17,7 +17,66 @@ $customer_data = $stmt->fetch(PDO::FETCH_ASSOC);
 $query = "SELECT * FROM cart_items WHERE customer_id = ?";
 $stmt = $conn->prepare($query);
 $stmt->execute([$customer_id]);
-$cart_items = $stmt->fetch(PDO::FETCH_ASSOC);
+$cart_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $tracking_number = rand(1000000000, 9999999999);
+    $order_date = date("Y-m-d H:i:s");
+    $store_id = $customer_data['store_id'];
+    $business_order = 0;
+
+    if (isset($_POST['account_number']) && !empty($_POST['account_number']))
+    {
+        $business_order = 1;
+    }
+    else
+    {
+        $_POST['cc_number'] = $_POST['prev_card'] ? $customer_data['cc_number'] : $_POST['cc_number'];
+        $_POST['exp_date'] = $_POST['prev_card'] ? $customer_data['exp_date'] : $_POST['exp_date'];
+        $_POST['cvv_number'] = $_POST['prev_card'] ? $customer_data['cvv_number'] : $_POST['cvv_number'];
+    }
+    
+    if (isset($_POST['prev_address']))
+    {
+        $_POST['address'] = $customer_data['address'];
+        $_POST['zip_code'] = $customer_data['zip_code'];
+        $_POST['state'] = $customer_data['state'];
+    }
+
+    $query = "INSERT INTO orders (customer_id, store_id, order_date, cc_number, exp_date, cvv_number, business_order, tracking_number, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($query);
+    $stmt->execute([$customer_id, $store_id, $order_date, $_POST['cc_number'], $_POST['exp_date'], $_POST['cvv_number'], $business_order, $tracking_number, 'Pending']);
+
+    // Get the last inserted order_id
+    $order_id = $conn->lastInsertId();
+
+    // Create order_items for each cart item
+    foreach ($cart_items as $cart_item)
+    {
+        $product_id = $cart_item['product_id'];
+        $quantity = $cart_item['quantity'];
+
+        // Fetch the price for the product
+        $query = "SELECT price FROM products WHERE product_id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->execute([$product_id]);
+        $product = $stmt->fetch(PDO::FETCH_ASSOC);
+        $price = $product['price'];
+
+        // Insert the order item into the order_items table
+        $query = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
+        $stmt = $conn->prepare($query);
+        $stmt->execute([$order_id, $product_id, $quantity, $price]);
+    }
+    // Clear the cart after the order has been placed
+    $query = "DELETE FROM cart_items WHERE customer_id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->execute([$customer_id]);
+
+    // Redirect to a success page or display a success message
+    header('Location: order_success.php');
+    exit();
+}
 
 ?>
 
@@ -62,7 +121,7 @@ $cart_items = $stmt->fetch(PDO::FETCH_ASSOC);
         <input type="text" name="zip_code" id="zip_code"><br>
 
         <label for="state">State</label>
-        <select>
+        <select name="state">
             <option value="--">Select your state</option>
             <option value="AL">Alabama</option>
             <option value="AK">Alaska</option>
