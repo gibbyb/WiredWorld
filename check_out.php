@@ -2,14 +2,14 @@
 require_once('config.php');
 
 // check if user is logged in
-if (!isset($_SESSION['customer_id'])) {
+if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 }
 
 
 // get user info
-$user_id = $_SESSION['customer_id'];
+$user_id = $_SESSION['user_id'];
 $stmt = $conn->prepare('SELECT * FROM customers WHERE customer_id = :customer_id');
 $stmt->execute(['customer_id' => $user_id]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
