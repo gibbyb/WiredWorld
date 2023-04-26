@@ -2,82 +2,23 @@
 require_once('config.php');
 
 // check if user is logged in
-if (!isset($_SESSION['customer_id'])) {
+if (!isset($_SESSION['customer_id']))
+{
     header('Location: login.php');
     exit();
 }
+$customer_id = $_SESSION['customer_id'];
 
+$query = "SELECT * FROM customers WHERE customer_id = ?";
+$stmt = $conn->prepare($query);
+$stmt->execute([$customer_id]);
+$customer_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// get user info
-$user_id = $_SESSION['user_id'];
-$stmt = $conn->prepare('SELECT * FROM customers WHERE customer_id = :customer_id');
-$stmt->execute(['customer_id' => $user_id]);
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+$query = "SELECT * FROM cart_items WHERE customer_id = ?";
+$stmt = $conn->prepare($query);
+$stmt->execute([$customer_id]);
+$cart_items = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// get cart items
-$stmt = $conn->prepare('SELECT * FROM cart_items WHERE customer_id = :customer_id');
-$stmt->execute(['customer_id' => $user_id]);
-$cart_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// calculate total price
-$total_price = 0;
-foreach ($cart_items as $item) {
-    $total_price += $item['quantity'] * $item['price'];
-}
-
-// handle form submission
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // validate form fields
-    $errors = [];
-    if (empty($_POST['cc_number'])) {
-        $errors[] = 'Please enter your credit card number.';
-    } elseif (!preg_match('/^\d{16}$/', $_POST['cc_number'])) {
-        $errors[] = 'Please enter a valid 16-digit credit card number.';
-    }
-
-    if (empty($_POST['exp_date'])) {
-        $errors[] = 'Please enter your credit card expiration date.';
-    } elseif (!preg_match('/^(0[1-9]|1[0-2])\/\d{2}$/', $_POST['exp_date'])) {
-        $errors[] = 'Please enter a valid expiration date in the format MM/YY.';
-    }
-
-    if (empty($_POST['cvv_number'])) {
-        $errors[] = 'Please enter your credit card CVV number.';
-    } elseif (!preg_match('/^\d{3}$/', $_POST['cvv_number'])) {
-        $errors[] = 'Please enter a valid 3-digit CVV number.';
-    }
-
-    if (empty($_POST['account_number'])) {
-        $errors[] = 'Please enter your bank account number.';
-    } elseif (!preg_match('/^\d+$/', $_POST['account_number'])) {
-        $errors[] = 'Please enter a valid bank account number.';
-    }
-
-
-
-    if (empty($errors)) {
-        // insert order into orders table
-        $stmt = $conn->prepare('INSERT INTO orders (customer_id, order_date, total_price) VALUES (:customer_id, :order_date, :total_price)');
-        $stmt->execute(['customer_id' => $user_id, 'order_date' => date('order_date'), 'total_price' => $total_price]);
-        $order_id = $conn->lastInsertId();
-// insert items into order_items table
-        foreach ($cart_items as $item) {
-            $stmt = $conn->prepare('INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (:order_id, :product_id, :quantity, :price)');
-            $stmt->execute(['order_id' => $order_id, 'product_id' => $item['product_id'], 'quantity' => $item['quantity'], 'price' => $item['price']]);
-        }
-
-        // clear cart
-        $_SESSION['cart'] = [];
-
-        // redirect to order confirmation page
-        header('Location: confirmation.php?id=' . $order_id);
-    } else {
-        // redirect back to check out page with errors
-        $_SESSION['checkout_errors'] = $errors;
-        header('Location: check_out.php');
-    }
-    exit;
-}
 ?>
 
 <!DOCTYPE html>
@@ -87,14 +28,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Wired World - Products</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="img/wired-world-logo.png" type="image/png">
+    <script src="scripts/use_card_ending.js"></script>
 </head>
 <body>
 <?php include 'header.php'; ?>
 <main id="check-out-main" style="margin-top: 100px;">
-
-    <h1>Checkout</h1>
-
+    <h1>Checkout</h1><br>
     <form method="POST" action="check_out.php">
+
+        <input type="radio" name="prev_card" id="prev_card">
+        <label for="prev_card">Use Card ending in <?php echo substr($customer_data['cc_number'], -4); ?></label><br><br>
+
+
         <label for="cc_number">Credit Card Number:</label>
         <input type="text" name="cc_number" id="cc_number"><br>
 
@@ -102,11 +47,75 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <input type="text" name="exp_date" id="exp_date"><br>
 
         <label for="cvv_number">CVV Number:</label>
-        <input type="text" name="cvv_number" id="cvv_number"><br>
+        <input type="text" name="cvv_number" id="cvv_number"><br><br>
 
         <label for="account_number">Business Account Number:</label>
-        <input type="text" name="account_number" id="account_number"><br>
+        <input type="text" name="account_number" id="account_number"><br><br>
 
+       <input type="radio" name="prev_address" id="prev_address">
+        <label for="prev_address">Use <?php echo $customer_data['address']; ?> </label><br><br>
+
+        <label for="address">Street Address</label>
+        <input type="text" name="address" id="address"><br>
+
+       <label for="zip_code">Zip Code</label>
+        <input type="text" name="zip_code" id="zip_code"><br>
+
+        <label for="state">State</label>
+        <select>
+            <option value="--">Select your state</option>
+            <option value="AL">Alabama</option>
+            <option value="AK">Alaska</option>
+            <option value="AZ">Arizona</option>
+            <option value="AR">Arkansas</option>
+            <option value="CA">California</option>
+            <option value="CO">Colorado</option>
+            <option value="CT">Connecticut</option>
+            <option value="DE">Delaware</option>
+            <option value="DC">District Of Columbia</option>
+            <option value="FL">Florida</option>
+            <option value="GA">Georgia</option>
+            <option value="HI">Hawaii</option>
+            <option value="ID">Idaho</option>
+            <option value="IL">Illinois</option>
+            <option value="IN">Indiana</option>
+            <option value="IA">Iowa</option>
+            <option value="KS">Kansas</option>
+            <option value="KY">Kentucky</option>
+            <option value="LA">Louisiana</option>
+            <option value="ME">Maine</option>
+            <option value="MD">Maryland</option>
+            <option value="MA">Massachusetts</option>
+            <option value="MI">Michigan</option>
+            <option value="MN">Minnesota</option>
+            <option value="MS">Mississippi</option>
+            <option value="MO">Missouri</option>
+            <option value="MT">Montana</option>
+            <option value="NE">Nebraska</option>
+            <option value="NV">Nevada</option>
+            <option value="NH">New Hampshire</option>
+            <option value="NJ">New Jersey</option>
+            <option value="NM">New Mexico</option>
+            <option value="NY">New York</option>
+            <option value="NC">North Carolina</option>
+            <option value="ND">North Dakota</option>
+            <option value="OH">Ohio</option>
+            <option value="OK">Oklahoma</option>
+            <option value="OR">Oregon</option>
+            <option value="PA">Pennsylvania</option>
+            <option value="RI">Rhode Island</option>
+            <option value="SC">South Carolina</option>
+            <option value="SD">South Dakota</option>
+            <option value="TN">Tennessee</option>
+            <option value="TX">Texas</option>
+            <option value="UT">Utah</option>
+            <option value="VT">Vermont</option>
+            <option value="VA">Virginia</option>
+            <option value="WA">Washington</option>
+            <option value="WV">West Virginia</option>
+            <option value="WI">Wisconsin</option>
+            <option value="WY">Wyoming</option>
+        </select><br><br>
         <input type="submit" value="Place Order">
     </form>
 

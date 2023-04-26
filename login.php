@@ -34,7 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                 // Start a new session and set session variables
                 $_SESSION['customer_id'] = $user['customer_id'];
                 $_SESSION['email'] = $email;
-
+                $_SESSION['selected_store_id'] = $user['store_id'];
+                session_start();
                 // Redirect to a protected page
                 header("Location: index.php");
                 $login_success = "Successfully logged in.";
