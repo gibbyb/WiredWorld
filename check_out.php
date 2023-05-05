@@ -44,9 +44,11 @@ if ($customer_data['store_id'] > 1)
             $_POST['state'] = $customer_data['state'];
         }
 
-        $query = "INSERT INTO orders (customer_id, store_id, order_date, cc_number, exp_date, cvv_number, business_order, tracking_number, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        // Insert the order into the orders table
+        $query = "INSERT INTO orders (customer_id, store_id, order_date, cc_number, exp_date, cvv_number, business_order, tracking_number, status, delivery_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($query);
-        $stmt->execute([$customer_id, $store_id, $order_date, $_POST['cc_number'], $_POST['exp_date'], $_POST['cvv_number'], $business_order, $tracking_number, 'Pending']);
+        // Execute the query and set delivery date to 5 days from now
+        $stmt->execute([$customer_id, $store_id, $order_date, $_POST['cc_number'], $_POST['exp_date'], $_POST['cvv_number'], $business_order, $tracking_number, 'Pending', date('Y-m-d H:i:s', strtotime('+5 days'))]);
 
         // Get the last inserted order_id
         $order_id = $conn->lastInsertId();
@@ -68,11 +70,33 @@ if ($customer_data['store_id'] > 1)
             $query = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
             $stmt = $conn->prepare($query);
             $stmt->execute([$order_id, $product_id, $quantity, $price]);
+
+            // Update the product quantity for the store that the order was placed at
+            $query = "UPDATE inventory SET quantity = quantity - ? WHERE product_id = ? AND store_id = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->execute([$quantity, $product_id, $store_id]);
+
         }
         // Clear the cart after the order has been placed
         $query = "DELETE FROM cart_items WHERE customer_id = ?";
         $stmt = $conn->prepare($query);
         $stmt->execute([$customer_id]);
+
+        // If the user filled in their credit card info, update customer table to have the card info saved to their account
+        if (!isset($_POST['prev_card']))
+        {
+            $query = "UPDATE customers SET cc_number = ?, exp_date = ?, cvv_number = ? WHERE customer_id = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->execute([$_POST['cc_number'], $_POST['exp_date'], $_POST['cvv_number'], $customer_id]);
+        }
+
+        // If the user filled in their address info, update customer table to have the address info saved to their account
+        if (!isset($_POST['prev_address']))
+        {
+            $query = "UPDATE customers SET address = ?, zip_code = ?, state = ? WHERE customer_id = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->execute([$_POST['address'], $_POST['zip_code'], $_POST['state'], $customer_id]);
+        }
 
         // Redirect to a success page or display a success message
         header('Location: orders.php');

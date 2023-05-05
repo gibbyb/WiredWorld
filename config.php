@@ -14,3 +14,5 @@ catch(PDOException $e)
 {
     echo "Connection failed: " . $e->getMessage();
 }
+
+date_default_timezone_set('America/Chicago'); // Set the default time zone to Central Time (CT)
