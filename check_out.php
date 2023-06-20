@@ -19,7 +19,7 @@ $stmt = $conn->prepare($query);
 $stmt->execute([$customer_id]);
 $cart_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-if ($customer_data['store_id'] > 1)
+if ($customer_data['store_id'] > 0)
 {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $tracking_number = rand(1000000000, 9999999999);
