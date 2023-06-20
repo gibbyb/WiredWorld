@@ -58,12 +58,7 @@ $selectedStoreId = $_SESSION['selected_store_id'] ?? 0;
                     echo '<div class="location-row">';
 
                     foreach ($stores as $store)
-                    {
-                        if ($store['store_id'] == 1)
-                        {
-                            // Skip the first store, it should not be manually selectable
-                            continue;
-                        }
+                    { 
                         echo '<div class="location-card">';
                         echo '<input type="radio" name="selected_store_id" value="' . $store['store_id'] . '"' . ($customerStoreId == $store['store_id'] ? ' checked' : '') . '>';
                         echo '<h3><u><b>' . $store['name'] . '</b></u></h3>';

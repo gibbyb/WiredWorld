@@ -67,9 +67,9 @@ if ($customer_data['store_id'] > 1)
             $price = $product['price'];
 
             // Insert the order item into the order_items table
-            $query = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
+            $query = "INSERT INTO order_items (order_id, product_id, quantity) VALUES (?, ?, ?)";
             $stmt = $conn->prepare($query);
-            $stmt->execute([$order_id, $product_id, $quantity, $price]);
+            $stmt->execute([$order_id, $product_id, $quantity]);
 
             // Update the product quantity for the store that the order was placed at
             $query = "UPDATE inventory SET quantity = quantity - ? WHERE product_id = ? AND store_id = ?";
@@ -99,8 +99,8 @@ if ($customer_data['store_id'] > 1)
         }
 
         // Redirect to a success page or display a success message
-        header('Location: orders.php');
-        exit();
+        // header('Location: orders.php');
+        // exit();
     }
 }
 else
@@ -126,11 +126,12 @@ else
 <main id="check-out-main" style="margin-top: 100px;">
     <h1>Checkout</h1><br>
     <form method="POST" action="check_out.php">
-
-        <input type="radio" name="prev_card" id="prev_card">
-        <label for="prev_card">Use Card ending in <?php echo substr($customer_data['cc_number'], -4); ?></label><br><br>
-
-
+        <?php
+        if ($customer_data['cc_number'] != 0)
+        {
+            echo '<input type="radio" name="prev_card" id="prev_card">';
+            echo '<label for="prev_card">Use Card ending in ' . substr($customer_data['cc_number'], -4) . '</label><br><br>';
+        }?>
         <label for="cc_number">Credit Card Number:</label>
         <input type="text" name="cc_number" id="cc_number"><br>
 
@@ -142,10 +143,12 @@ else
 
         <label for="account_number">Business Account Number:</label>
         <input type="text" name="account_number" id="account_number"><br><br>
-
-       <input type="radio" name="prev_address" id="prev_address">
-        <label for="prev_address">Use <?php echo $customer_data['address']; ?> </label><br><br>
-
+        <?php
+        if ($customer_data['address'] != '')
+        {
+            echo '<input type="radio" name="prev_address" id="prev_address">';
+            echo '<label for="prev_address">Use ' . $customer_data['address'] . '</label><br><br>';
+        }?>
         <label for="address">Street Address</label>
         <input type="text" name="address" id="address"><br>
 

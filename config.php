@@ -1,9 +1,9 @@
 <?php
 session_start();
-$host = "wwdb.gibbyb.com"; // Your database host (usually localhost)
-$db_name = "wired-world-db"; // The name of your database
-$username = "ww-db"; // Your MySQL username
-$password = "ww2023"; // Your MySQL password
+$host = "mysql"; // Your database host (usually localhost)
+$db_name = "wiredworld_db"; // The name of your database
+$username = "wiredworld_user"; // Your MySQL username
+$password = "wiredworld2023"; // Your MySQL password
 
 try
 {
