@@ -12,13 +12,13 @@ From the live website, you can begin by either registering or logging in. Once y
 
 You can access the database with the following credentials:
 
-Server/Host: wwdb.gibbyb.com
+Server/Host: mysql.gibbyb.com
 
-Username: ww-db
+Username: 
 
-Password: ww2023
+Password:
 
-Database Name: wired-world-db
+Database Name:
 
 The Database port on my (Gabriel's) router is forwarding to the database, so as long as you have an internet connection, you can access it with these credentials. If you run into any trouble, the database is accessible from https://adminer.gibbyb.com with the above credentials. 
 
